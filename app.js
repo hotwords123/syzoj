@@ -272,6 +272,8 @@ global.syzoj = {
           let obj;
           try {
             obj = JSON.parse(req.cookies.login);
+            if (!Array.isArray(obj) || obj.length !== 2 || typeof obj[0] !== 'string' || typeof obj[1] !== 'string')
+              throw new Error("invalid data");
             User.findOne({
               where: {
                 username: obj[0],
